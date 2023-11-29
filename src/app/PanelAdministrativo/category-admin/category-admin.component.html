@@ -1,0 +1,140 @@
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item active" aria-current="page">/ Categoria </li>
+  </ol>
+</nav>
+<div class="card row cardContainer">
+  <div class="card-body">
+    <div class="row  justify-content-between btn-actions">
+      <div class="btn-actions col-md-5">
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#registrarCategory">
+          <i class="fa-solid fa-plus">
+          </i> Registrar Categoria</button>
+      </div>
+      <div class="inputs search col-md-3">
+        <label>
+          <input type="text" [(ngModel)]="filtroBusqueda" placeholder="Buscar" />
+          <i class="fa-solid fa-magnifying-glass"></i>
+        </label>
+      </div>
+    </div>
+
+    <div class="row table-container">
+      <h5> <i class="bi bi-list-task"></i> Listado de Categorias</h5>
+      <hr>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Fecha de creación</th>
+            <th>Estado</th>
+            <th>Opciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of filtrarItems();">
+            <td>{{item.id}}</td>
+            <td>{{item.nombre}}</td>
+            <td>{{item.date}}</td>
+            <td *ngIf="item.estado == 1"><span class="badge text-bg-success">Active</span></td>
+            <td *ngIf="item.estado == 2"><span class="badge text-bg-danger">Inactivo</span></td>
+            <td>
+              <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#updateCategory"
+                (click)="vercategory(item)">
+                <i class="bi bi-pencil"></i>
+              </button>
+              <button type="button" class="btn btn-danger" (click)="deleteCategory(item)">
+                <i class="bi bi-trash3"></i>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="row justify-content-end">
+      <div class="count-title col-3 justify-content-center">
+        <h6>Total de categorias : <strong style="color: #FF6969;">{{totalCategory}}</strong></h6>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="registrarCategory" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Registro de categoria</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <h6>Informacion de las categorias</h6>
+
+        <form [formGroup]="categoryForm" class="formReactivo">
+          <div class="info-modal">
+            <div class="row mt-3">
+              <label for="inputText" class="col-md-2 col-form-label" disabled>Nombre :</label>
+              <div class="col-md-5">
+
+                <input id="nombre" name="nombre" formControlName="nombre" type="text" class="form-control ">
+                <div class="text-danger"
+                *ngIf="categoryForm.get('nombre')?.hasError('required') && categoryForm.get('nombre')?.touched">
+                <span><i class="bi bi-exclamation-circle "></i>El nombre es <strong>es
+                    obligatorio</strong></span>
+              </div>
+              </div>
+
+             
+              <br><br>
+            </div>
+          </div>
+        </form>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" data-bs-dismiss="modal" [disabled]="categoryForm.invalid"
+            (click)="saveCategory()">Guardar</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+<!-- Modal UPDATE-->
+<div class="modal fade" id="updateCategory" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Datos de categoria</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <h6>Informacion de las categorias</h6>
+        <form>
+          <div class="info-modal">
+            <div class="row mt-3 g-3">
+              <label for="inputText" class="col-md-2 form-label">Id :</label>
+              <div class="col-md-10">
+                <input type="text" name="id" [(ngModel)]="categoryUpdate.id" class=" form-control" disabled>
+              </div>
+
+              <label for="inputText" class="col-md-2 col-form-label">Nombre :</label>
+              <div class="col-md-4">
+                <input type="text" name="nombre" [(ngModel)]="categoryUpdate.nombre" class="form-control col-md-4">
+              </div>
+              <label for="inputText" class="col-md-2 col-form-label">Estado</label>
+              <div class="col-md-4">
+                <select name="estado" [(ngModel)]="categoryUpdate.estado" class="form-control col-md-4">
+                  <option [value]="1">Activo</option>
+                  <option [value]="2">Inactivo</option>
+                </select>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal"
+                  (click)="updateCategory()">Guardar</button>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

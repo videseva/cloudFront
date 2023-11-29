@@ -1,0 +1,120 @@
+<div class="navegation">
+    <ul>
+      <li>
+        <div style="text-align: center;">
+          <img src="/assets/logosidebar.png" style="width: 100px; text-align: center;" alt="">
+          <h5 style="color: #fff;">Z O N  E C O N E X</h5>
+        </div>
+      </li>
+      <li>
+        <a [routerLinkActive]="['active']" [routerLink]="['/home']"
+        *ngIf=" authService.isAdmin() ">
+          <span class="icon"><i class="bi bi-house-door-fill"></i></span>
+        
+         <span class="title">Inicio   </span>
+        </a>
+      </li>
+      <li>
+        <a [routerLinkActive]="['active']" [routerLink]="['/homeSadmin']"
+        *ngIf="authService.isSuperAdmin()">
+          <span class="icon"><i class="bi bi-house-door-fill"></i></span>
+          <span class="title">Inicio</span>
+        </a>
+      </li>
+      <li>
+        <a [routerLinkActive]="['active']" [routerLink]="['/homeResidente']"
+        *ngIf="authService.isResidente()">
+          <span class="icon"><i class="bi bi-house-door-fill"></i></span>
+          <span class="title">Inicio</span>
+        </a>
+      </li>
+      <li>
+        <a [routerLinkActive]="['active']" [routerLink]="['/zoneResident']"
+        *ngIf="authService.isResidente()">
+          <span class="icon"><i class="bi bi-grid"></i></span>
+          <span class="title">Zonas comunes</span>
+        </a>
+      </li>
+      <li>
+        <a [routerLinkActive]="['active']" [routerLink]="['/reserve']"
+        *ngIf="authService.isResidente()">
+          <span class="icon"><i class="bi bi-ticket-detailed"></i></span>
+          <span class="title">Reservas </span>
+        </a>
+      </li>
+      <li>
+        <a [routerLinkActive]="['active']" [routerLink]="['/reserverAdmin']"
+        *ngIf="authService.isAdmin()">
+          <span class="icon"><i class="bi bi-ticket-detailed"></i></span>
+          <span class="title">Reservas Admin
+             <span class="badge text-bg-secondary"  [ngClass]="claseReservaPendiente">{{reservaPendiente}}</span>
+             
+        
+        </span>
+        </a>
+      </li>
+      <li>
+        <a [routerLinkActive]="['active']" [routerLink]="['/usersAdmin']"
+        *ngIf="authService.isAdmin()">
+          <span class="icon"><i class="bi bi-people"></i></span>
+          <span class="title">Users Admin</span>
+        </a>
+      </li>
+      <li>
+        <a [routerLinkActive]="['active']" [routerLink]="['/zoneAdmin']"
+        *ngIf="authService.isAdmin()">
+          <span class="icon"><i class="bi bi-person-gear"></i></span>
+          <span class="title">Zona Admin</span>
+        </a>
+      </li>
+      <li>
+        <a [routerLinkActive]="['active']" [routerLink]="['/category-admin']"
+        *ngIf="authService.isAdmin()">
+          <span class="icon"><i class="bi bi-card-heading"></i></span>
+          <span class="title">Categoria Admin</span>
+        </a>
+      </li>
+      <li>
+        <a [routerLinkActive]="['active']" [routerLink]="['/account']"
+        *ngIf="authService.isAdmin()">
+          <span class="icon"><i class="bi bi-person-badge-fill"></i></span>
+          <span class="title">Account Admin</span>
+        </a>
+      </li>
+      <li>
+        <a [routerLinkActive]="['active']" [routerLink]="['/profile']"
+        *ngIf="authService.isResidente()">
+          <span class="icon"><i class="bi bi-person-check"></i></span>
+          <span class="title">profile</span>
+        </a>
+      </li>
+      <li>
+        <a [routerLinkActive]="['active']" [routerLink]="['/accountSadmin']"
+        *ngIf="authService.isSuperAdmin()">
+          <span class="icon"><i class="bi bi-person-lines-fill"></i></span>
+          <span class="title">Cuenta Super Admin</span>
+        </a>
+      </li>
+      <li>
+        <a [routerLinkActive]="['active']" [routerLink]="['/profileSadmin']"
+        *ngIf="authService.isSuperAdmin()">
+          <span class="icon"><i class="bi bi-person-check"></i></span>
+          <span class="title">profile</span>
+        </a>
+      </li>
+      <li>
+        <a [routerLinkActive]="['active']" [routerLink]="['/helpAdmin']"
+        *ngIf="authService.isAdmin()">
+          <span class="icon"><i class="bi bi-question"></i></span>
+          <span class="title">Ayuda </span>
+        </a>
+      </li>
+      <li>
+        <a [routerLinkActive]="['active']" [routerLink]="['/helpResident']"
+        *ngIf="authService.isResidente()">
+          <span class="icon"><i class="bi bi-question"></i></span>
+          <span class="title">Ayuda </span>
+        </a>
+      </li>
+    </ul>
+  </div>

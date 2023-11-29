@@ -1,0 +1,45 @@
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item active" aria-current="page">/ Home</li>
+    </ol>
+  </nav>
+  <div class="row mt-3 mb-4">
+    <span class="pl-5 text-secondary" style="font-size: 20px;"><i class="bi bi-sun text-warning"></i> ¡Saludos! Hoy,
+      <strong>{{ currentDateTime }}</strong>, es un nuevo día para alcanzar tus metas.</span>
+  </div>
+  <div class="row justify-content-evenly">
+    <div class="col-md-6">
+      <div id="chart">
+        
+        <apx-chart
+          [series]="chartOptions.series"
+          [chart]="chartOptions.chart"
+          [labels]="chartOptions.labels"
+        [colors]="chartOptions.colors"
+        [responsive]="chartOptions.responsive"
+        [fill]="chartOptions.fill"
+        [legend]="chartOptions.legend"
+        > </apx-chart>
+
+      </div>
+    </div>
+    <div class="col-md-6 g-4">
+    <div class="col-10 col-sm-12 card cardIndicator ">
+      <h5>Total de Condominios </h5>
+      <span class="pl-5" style="color: #141E46;"><i class="bi bi-people"></i> {{totalCuenta}} </span>
+    </div>
+    <div class="col-10 col-sm-12 card cardIndicator border-success ">
+      <h5>Condominios Activos</h5>
+      <span class="pl-5" style="color: #68B984;"><i class="bi bi-people"></i> {{countEstadoActive}}</span>
+    </div>
+    <div class="col-10 col-sm-12 card cardIndicator border-danger ">
+      <h5>Condominios Inactivos </h5>
+      <span class="pl-5" style="color: #FF0066;"><i class="bi bi-people"></i> {{countEstadoInactive}}</span>
+    </div>
+  </div>
+  </div>
+ 
+  
+ 
+  
+

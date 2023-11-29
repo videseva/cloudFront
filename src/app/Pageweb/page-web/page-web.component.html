@@ -1,0 +1,155 @@
+<header class="headerL">
+    <div class="navbar">
+      <div class="logo"><a href="#"> <img src="/assets/img/logoA.svg" alt="logo">
+        <a class="logo">
+           
+    
+            <span class="title">ComuniNex</span>
+          </a>
+    </a></div>
+      <ul class="links">
+        <li><a (click)="scrollToSection('homeLanding')" >Inicio</a></li>
+        <li><a (click)="scrollToSection('beneficiosLanding')">Beneficios</a></li>
+        <li><a (click)="scrollToSection('planesLanding')" >Planes</a></li>
+        <li><a (click)="scrollToSection('formularioLanding')">Contactanos</a></li>
+      </ul>
+      <a [routerLinkActive]="['active']" [routerLink]="['/pageWeb/login']" class="action_btn btn btn-primary">Ingresar</a>
+      <div class="toggle_btn">
+        <i class="fa-solid fa-bars"></i>
+      </div>
+    </div>
+  
+    <div class="dropdown_menu ">
+      <li><a (click)="scrollToSection('homeLanding')" >Inicio</a></li>
+      <li><a (click)="scrollToSection('beneficiosLanding')">Beneficios</a></li>
+      <li><a (click)="scrollToSection('planesLanding')" >Planes</a></li>
+      <li><a (click)="scrollToSection('formularioLanding')">Contactanos</a></li>
+      <li>     <a [routerLinkActive]="['active']" [routerLink]="['/pages/login-landingpage']" class="action_btn btn">Ingresar</a>
+      </li>
+    </div>
+  </header>
+
+  <body>
+  
+    <main>
+        <section id="homeLanding"  class="hero">
+            <div class="container">
+                <div class="izquierda">
+                    <h1>Hacemos Que Tú Conjunto Cerrado Sea <span>Aún Mejor</span> </h1>
+                    <p>brindamos las herramientas necesarias para una gestión eficiente y
+                        sencilla de las zonas comunes. </p>
+                  
+                </div>
+                <div class="derecha">
+                    <img src="/assets/img/hero.svg" alt="hero">
+                </div>
+            </div>
+
+        </section>
+    </main>
+
+    <section id="beneficiosLanding" class="beneficios">
+
+        <div class="container_beneficios">
+            <h1>Beneficios</h1>
+            
+                <div class="iconos-nosotros">
+                    <div class="icono">
+                        <img src="/assets/img/seguridad.svg" alt="Icono seguridad" loading="lazy">
+                        <h3>Seguridad</h3>
+                        <p>El software puede integrar sistemas de control de acceso para garantizar que solo los residentes autorizados tengan acceso</p>
+                    </div>
+                    <div class="icono">
+                        <img src="/assets/img/calendar-svgrepo-com.svg" alt="Icono Reserva" loading="lazy">
+                        <h3>Facilita la reserva</h3>
+                        <p>Los residentes pueden reservar fácilmente áreas comunes como salones de eventos, piscinas, canchas deportivas, etc., a través del software en línea en lugar de hacerlo de manera manual.</p>
+                    </div>
+                    <div class="icono">
+                        <img src="/assets/img/docs.svg" alt="Icono Tiempo" loading="lazy">
+                        <h3>Generación de informes</h3>
+                        <p>Proporciona informes sobre el uso de las áreas comunes, lo que puede ser útil para la administración y la toma de decisiones.</p>
+                    </div>
+                </div>
+
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+                <path fill="#fff" fill-opacity="1"
+                    d="M0,288L80,250.7C160,213,320,139,480,144C640,149,800,235,960,266.7C1120,299,1280,277,1360,266.7L1440,256L1440,320L1360,320C1280,320,1120,320,960,320C800,320,640,320,480,320C320,320,160,320,80,320L0,320Z">
+                </path>
+            </svg>
+        
+
+        </div>
+
+    </section>
+
+    <section id="planesLanding" class="planes">
+      <div class="planes_Se">
+        <div class="price-card">
+            <div class="header">
+                <div class="price">$100000</div>
+                <div class="info">
+                    <h1>BASIC</h1>
+                    <p>Lorem insup dolor sit amet</p>
+                </div>
+            </div>
+            <div class="desc">
+                <li>
+                    <span class="icon check"><i class="bi bi-check"></i></span>
+                    Lorem insup dolor sit amet
+
+
+
+                </li>
+                <li>
+                    <span class="icon check"><i class="bi bi-check"></i></span>
+
+                    Lorem insup dolor sit amet
+
+
+                </li>
+              
+                <li>
+                    <span class="icon"><i class="bi bi-x"></i></span>
+
+                    Lorem insup dolor sit amet
+
+
+                </li>
+                <li>
+                    <span class="icon"><i class="bi bi-x"></i></span>
+                    Lorem insup dolor sit amet
+
+                </li>
+
+            </div>
+            <button (click)="scrollToSection('formularioLanding')">¡Lo Quiero!</button>
+        </div>
+
+
+      </div>
+    </section>
+
+    <section id="formularioLanding" class="formularioL" >
+        <form >
+            <div class="form">
+                <h2>Deja tus datos para poder contactarte  </h2>
+                <div class="grupo">
+                    <input type="text" name="nombre"  [(ngModel)]="nombre" ><span class="barra"></span>
+                    <label>Nombre</label>
+                </div>
+                <div class="grupo">
+                    <input type="email" name="correo" [(ngModel)]="correo" ><span class="barra"></span>
+                    <label>Email</label>
+                </div>
+               
+                <div class="grupo">
+                    <textarea name="miMensaje" [(ngModel)]="miMensaje" rows="3" ></textarea><span class="barra"></span>
+                    <label>Mensaje</label>
+                </div>
+                <button type="submit" (click)="envioCorreo()" class="btn btn-primary">Enviar</button>
+            </div>
+        </form>
+    
+    </section>
+
+</body>

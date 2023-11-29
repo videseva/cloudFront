@@ -1,0 +1,85 @@
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item active" aria-current="page">/ Cuenta </li>
+    </ol>
+</nav>
+<div class="row justify-content-evenly">
+    <div class="col-md-4 card pt-3"><img src="/assets/img/img.jpg" class="card-img-top" alt="..."
+        style="max-height: 300px;">
+        <div class="card-body">
+            <h5>Administrador</h5>
+            <form class="row g-3">
+                <div class="col-md-12">
+                    <div class="col-md-12 mensajeEditar"  >{{mensajeEditar}}</div>
+
+                    <label  class="form-label">Nombre: </label>
+                    <input type="text" name="nombre" [(ngModel)]="user.nombre"  class="form-control" [disabled]="!inputsHabilitados">
+                </div>
+                <div class="col-md-6">
+                    <label  class="form-label">Genero: </label>
+                    <input type="email" name="genero" [(ngModel)]="user.genero" class="form-control" [disabled]="!inputsHabilitados">
+                </div>
+
+                <div class="col-md-6">
+                    <label class="form-label">Telefono: </label>
+                    <input type="text" name="telefono" [(ngModel)]="user.telefono"  class="form-control"  placeholder="1234 Main St" [disabled]="!inputsHabilitados">
+                </div>
+               
+                <div class="col-md-6">
+                    <label  class="form-label">Correo: </label>
+                    <input type="email" name="correo" [(ngModel)]="user.correo" class="form-control" [disabled]="!inputsHabilitados">
+                </div>
+                <div class="col-md-6">
+                    <label  class="form-label">Password: </label>
+                    <input type="password" name="contrasena" [(ngModel)]="user.contrasena" class="form-control" [disabled]="!inputsHabilitados">
+                </div>
+                <button type="button" class="btn btn-success" style="background: var(--coral) !important;" (click)="habilitarInputs()" [hidden]="modoEdicion">Actualizar Datos</button>
+
+                <button type="button" class="btn btn-success" (click)="guardarCambios()" [hidden]="!modoEdicion">Guardar Cambios</button>
+          
+            </form>
+        </div>
+    </div>
+    <div class="col-md-7 card pt-3">
+       <img src="/assets/img/conjunto cerrado.jpg" class="card-img-top" alt="..."
+            style="max-height: 300px;">
+       
+        <div class="card-body">
+            <h5>Cojunto Cerrado</h5>
+            <form class="row g-3">
+                <div class="col-md-6">
+                    <label class="form-label">Id: </label>
+                    <input type="text" name="id" [(ngModel)]="nuevoAccount.id"  disabled class="form-control">
+                </div>
+                <div class="col-md-6">
+                    <label  class="form-label">Tipo de condominio: </label>
+                    <input type="text"  name="tipoCondominio"   class="form-control" placeholder="1234 Main St">
+                </div>
+                <div class="col-12">
+                    <label class="form-label">Nombre: </label>
+                    <input type="text"  name="nombre" [(ngModel)]="nuevoAccount.nombre"  class="form-control" placeholder="1234 Main St">
+                </div>
+                <div class="col-md-6">
+                    <label  class="form-label">Correo: </label>
+                    <input type="email" name="correo" [(ngModel)]="nuevoAccount.correo"   class="form-control">
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">Telefono: </label>
+                    <input type="text"  name="telefono" [(ngModel)]="nuevoAccount.telefono"   class="form-control" >
+                </div>
+                <div class="col-md-6">
+                    <label  class="form-label">Descripción: </label>
+                    <textarea type="text" name="descripcion" [(ngModel)]="nuevoAccount.descripcion" class="form-control" cols="30" rows="1"></textarea>
+                </div>
+                <div class="col-md-6">
+                    <label  class="form-label">Direccion: </label>
+                    <textarea class="form-control"name="direccion" [(ngModel)]="nuevoAccount.direccion"   cols="30" rows="1"></textarea>
+                </div>
+                <div class="col-12">
+                    <label for="formFile" class="form-label">Subir Archivo: </label>
+                    <input class="form-control" type="file" id="formFile">
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

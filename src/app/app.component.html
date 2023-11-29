@@ -1,0 +1,12 @@
+<!-- menu lateral <app-navbar-residente *ngIf="showSideBar"></app-navbar-residente> -->
+<!-- header -->
+
+<app-header *ngIf="showSideBar"></app-header>
+<app-sidebar *ngIf="showSideBar"></app-sidebar>
+
+<!-- main -->
+<main class="main">
+    <router-outlet></router-outlet>
+    
+</main>
+

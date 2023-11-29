@@ -1,0 +1,94 @@
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item active" aria-current="page">/ Zona comunes</li>
+  </ol>
+</nav>
+<div class="card row cardContainer">
+  <div class="card-body">
+    <div class="row  justify-content-end btn-actions">
+
+
+      <div class="inputs search col-md-3">
+        <label>
+          <input type="text" [(ngModel)]="filtroBusqueda" placeholder="Buscar" />
+          <i class="fa-solid fa-magnifying-glass"></i>
+        </label>
+      </div>
+    </div>
+
+    <div class="row table-container">
+      <h5> <i class="bi bi-list-task"></i> Listado de Zonas </h5>
+      <hr>
+      <table class="table">
+        <thead>
+          <tr> 
+            <th>#</th>
+            <th>Nombre</th>
+            <th>Capacidad</th>
+            <th>Descripción</th>
+            <th>Categoria</th>
+            <th>Estado</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+          <tbody>
+          <tr *ngFor="let item of filtrarItems();">
+            <td>{{item.id}}</td>
+            <td>{{item.nombre}}</td>
+            <td>{{item.capacidad}}</td>
+            <td>{{item.descripcion}}</td>
+            <td>{{item.idCategoria}}</td>
+            <td *ngIf="item.estado == 1"><span class="badge text-bg-success">Active</span></td>
+            <td *ngIf="item.estado == 2"><span class="badge text-bg-danger">Inactivo</span></td>
+            <td>
+              <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#zoneList" (click)="seeZone(item)">
+                <i class="bi bi-eye-fill"></i>
+              </button>
+            </td>
+          </tr>
+  
+        </tbody>
+      </table>
+    </div>
+    <div class="row justify-content-end">
+      <div class="count-title col-2 justify-content-center">
+        <h6>Total de Zonas : <strong style="color: #FF6969;">{{totalZone}}</strong></h6>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="zoneList" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Informacion de la Zona</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-md-6 col-sm-12">
+            <img src="assets/img/img2.jpg" style="width: 300px; margin-bottom: 5px;" class="rounded float-start"
+              alt="...">
+            <img src="assets/img/img3.jpg" style="width: 300px;" class="rounded float-start" alt="...">
+          </div>
+          <div class="col-md-6 col-sm-12">
+            <h5>{{verZone.nombre}}</h5>
+
+            <P>{{verZone.descripcion}}</P>
+            <h6><i class="bi bi-people"></i> Cantidad de personas: </h6>
+            <p>{{verZone.capacidad}}</p>
+            <h6><i class="bi bi-ban"></i> No esta permitido: </h6>
+            <P>{{verZone.noPermitido}}</P>
+            <h6><i class="bi bi-life-preserver"></i> Descripcion: </h6>
+            <P>{{verZone.descripcion}}</P>
+            <h6><i class="bi bi-clock"></i> Disponibilidad: </h6>
+            <P>{{verZone.disponibilidad}}</P>
+        
+          </div>
+        </div>
+      </div>
+    </div>
+  </div></div>

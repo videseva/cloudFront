@@ -1,0 +1,233 @@
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item active" aria-current="page">/ Usuarios</li>
+  </ol>
+</nav>
+<div class="card row cardContainer">
+  <div class="card-body">
+    <div class="row  justify-content-between btn-actions">
+      <div class="btn-actions col-md-5">
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#saveUser">
+          <i class="fa-solid fa-plus">
+          </i> Registrar Usuario</button>
+        <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#uploadFile">
+          <i class="bi bi-cloud-upload"></i>  Subir Archivo</button>
+      </div>
+
+      <div class="inputs search col-md-3">
+        <label>
+          <input type="text" [(ngModel)]="filtroBusqueda" placeholder="Buscar" />
+          <i class="fa-solid fa-magnifying-glass"></i>
+        </label>
+      </div>
+    </div>
+    <div class="row table-container">
+      <h5> <i class="bi bi-list-task"></i> Listado de usuarios </h5>
+      <hr>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Genero</th>
+            <th>telefono</th>
+            <th>Correo</th>
+            <th>Direccion</th>
+            <th>estado</th>
+            <th>Opciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of filtrarItems();">
+            <td>{{item.id}}</td>
+            <td>{{item.nombre}}</td>
+            <td>{{item.genero}}</td>
+            <td>{{item.telefono}}</td>
+            <td>{{item.correo}}</td>
+            <td>{{item.direccion}}</td>
+            <td *ngIf="item.estado == 1"><span class="badge text-bg-success">Active</span></td>
+            <td *ngIf="item.estado == 2"><span class="badge text-bg-danger">Inactivo</span></td>
+            <td>
+              <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#updateUser"
+              (click)="verUsers(item)">
+                <i class="bi bi-pencil"></i>
+              </button>
+              <button type="button" class="btn btn-danger" (click)="deleteUser(item)">
+                <i class="bi bi-trash3"></i>
+              </button>
+            </td>
+
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="row justify-content-end">
+      <div class="count-title col-2 justify-content-center">
+        <h6>Total de usuarios: <strong style="color: #FF6969;">{{totalUser}}</strong></h6>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- Modal editar-->
+<div class="modal fade" id="updateUser" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Informacion de los usuarios</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <h6>Informacion de los usuarios</h6>
+        <form>
+          <div class="info-modal">
+            <div class="row mt-3">
+              <label class="col-md-2 col-form-labell">Subir Foto: </label>
+              <div class="col-md-9">
+                <input class="form-control" type="file">
+              </div>
+              <br><br>
+              <label for="inputText" class="col-md-2 col-form-label">Nombre: </label>
+              <div class="col-md-4">
+                <input id="nombre" name="nombre" type="text" [(ngModel)]="userUpdate.nombre" class="form-control">
+              </div>
+              <label for="inputText" class="col-md-2 col-form-label">telefono :</label>
+              <div class="col-md-4">
+                <input id="telefono" name="telefono" [(ngModel)]="userUpdate.telefono"  type="number" class="form-control">
+              </div>
+            </div>
+            <div class="row mt-3">
+              <label for="inputText" class="col-md-2 col-form-select">Genero :</label>
+              <div class="col-md-4">
+                <select id="genero"[(ngModel)]="userUpdate.genero" name="genero"class="form-select"
+                  aria-label="Default select example" rows="1">
+                  <option [value]="1">Masculino</option>
+                  <option [value]="2">Femenino</option>
+                </select>
+              </div>
+              <label for="inputText" class="col-md-2 col-form-label">Correo :</label>
+              <div class="col-md-4">
+                <input id="correo" [(ngModel)]="userUpdate.correo"  name="correo" type="email" class="form-control">
+              </div>
+            </div>
+            <div class="row mt-3">
+              <label for="inputText" class="col-md-2 col-form-label">Direccion :</label>
+              <div class="col-md-4">
+                <input id="direccion" [(ngModel)]="userUpdate.direccion"  name="codireccionrreo" type="text"
+                  class="form-control"> 
+              </div>
+            </div>
+            <br>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="updateUser()"> Actualizar</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal registrar usuario-->
+<div class="modal fade" id="saveUser" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Registrar usuarios</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <h6>Registrar los usuarios</h6>
+        <form [formGroup]="UserForm" class="formReactivo">
+          <div class="info-modal">
+            <div class="row mt-3">
+
+              <label class="col-md-2 col-form-labell">Subir Foto: </label>
+              <div class="col-md-9">
+                <input class="form-control" type="file">
+              </div>
+              <br><br>
+              <label for="inputText" class="col-md-2 col-form-label">Nombre: </label>
+              <div class="col-md-4">
+                <input id="nombre" name="nombre" type="text" formControlName="nombre" class="form-control">
+                <div class="text-danger"
+                *ngIf="UserForm.get('nombre')?.hasError('required') && UserForm.get('nombre')?.touched">
+                <span><i class="bi bi-exclamation-circle "></i>El nombre <strong>es
+                    obligatorio</strong></span>
+              </div>
+              </div>
+              <label for="inputText" class="col-md-2 col-form-label">telefono :</label>
+              <div class="col-md-4">
+                <input id="telefono" name="telefono" formControlName="telefono" type="number" class="form-control">
+                <div class="text-danger"
+                *ngIf="UserForm.get('telefono')?.hasError('required') && UserForm.get('telefono')?.touched">
+                <span><i class="bi bi-exclamation-circle "></i>El telefono <strong>es obligatorio</strong></span>
+              </div>
+              </div>
+            </div>
+            <div class="row mt-3">
+              <label for="inputText" class="col-md-2 col-form-select">Genero :</label>
+              <div class="col-md-4">
+                <select id="genero" formControlName="genero" name="genero"class="form-select"
+                  aria-label="Default select example" rows="1">
+                  <option [value]="1">Masculino</option>
+                  <option [value]="2">Femenino</option>
+                </select>
+                <div class="text-danger"
+                *ngIf="UserForm.get('genero')?.hasError('required') && UserForm.get('genero')?.touched">
+                <span><i class="bi bi-exclamation-circle "></i>El genero <strong>es obligatorio</strong></span>
+              </div>
+              </div>
+              <label for="inputText" class="col-md-2 col-form-label">Correo :</label>
+              <div class="col-md-4">
+                <input id="correo" formControlName="correo" name="correo" type="email" class="form-control">
+                <div class="text-danger"
+                *ngIf="UserForm.get('correo')?.hasError('required') && UserForm.get('correo')?.touched">
+                <span><i class="bi bi-exclamation-circle "></i>El correo <strong>es obligatorio</strong></span>
+              </div>
+              </div>
+            </div>
+            <div class="row mt-3">
+              <label for="inputText" class="col-md-2 col-form-label">Direccion :</label>
+              <div class="col-md-4">
+                <input id="direccion" formControlName="direccion"  name="codireccionrreo" type="text" class="form-control"> 
+                <div class="text-danger"
+                *ngIf="UserForm.get('direccion')?.hasError('required') && UserForm.get('direccion')?.touched">
+                <span><i class="bi bi-exclamation-circle "></i>El direccion <strong>es obligatorio</strong></span>
+              </div>
+              </div>
+            </div>
+            <br>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-primary" data-bs-dismiss="modal" [disabled]="UserForm.invalid" (click)="saveUser()">
+                Guardar</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal subir archivo-->
+<div class="modal fade" id="uploadFile" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-md">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Archivos </h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="mb-3">
+          <label  class="form-label">Subir Archivo: </label>
+          <input class="form-control" type="file" (change)="onFileChange($event)" name="formFile">
+        </div>
+      </div>
+      <div class="modal-footer">
+
+        <button type="button" data-bs-dismiss="modal" (click)="saveFile()" class="btn btn-primary">Aceptar</button>
+      </div>
+    </div>
+  </div>
+</div>

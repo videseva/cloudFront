@@ -1,0 +1,244 @@
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item active" aria-current="page">/Zonas </li>
+    </ol>
+</nav>
+<div class="card row cardContainer">
+    <div class="card-body">
+        <div class="row  justify-content-between btn-actions">
+            <div class="btn-actions col-md-5">
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#zonaModalAdmin">
+                    <i class="fa-solid fa-plus">
+                    </i> Registrar
+                    zona</button>
+            </div>
+            <div class="inputs search col-md-3">
+                <label>
+                    <input type="text" [(ngModel)]="filtroBusqueda" placeholder="Buscar" />
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </label>
+            </div>
+        </div>
+
+        <div class="row table-container">
+            <h5> <i class="bi bi-list-task"></i> Listado de zonas</h5>
+            <hr>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Nombre</th>
+                        <th>Capacidad</th>
+                        <th>Descripción</th>
+                        <th>Categoria</th>
+                        <th>Estado</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of filtrarItems();">
+                        <td>{{item.id}}</td>
+                        <td>{{item.nombre}}</td>
+                        <td>{{item.capacidad}}</td>
+                        <td>{{item.descripcion}}</td>
+                        <td>{{item.idCategoria}}</td>
+                        <td *ngIf="item.estado == 1"><span class="badge text-bg-success">Active</span></td>
+                        <td *ngIf="item.estado == 2"><span class="badge text-bg-danger">Inactivo</span></td>
+                        <td>
+                            <button type="button" class="btn btn-success" data-bs-toggle="modal"
+                                data-bs-target="#updateZona" (click)="verZona(item)">
+                                <i class="bi bi-pencil"></i>
+                            </button>
+                            <button type="button" class="btn btn-danger" (click)="deleteZone(item)">
+                                <i class="bi bi-trash3"></i>
+                            </button>
+                        </td>
+
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="row justify-content-end">
+            <div class="count-title col-2 justify-content-center">
+                <h6>Total de zonas : <strong style="color: #FF6969;">{{totalZone}}</strong></h6>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!-- Modal registrar -->
+<div class="modal fade" id="zonaModalAdmin" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Datos de La zona</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+
+                <form [formGroup]="zonaForm" class="formReactivo row g-3">
+                    <div class="col-md-6">
+                        <input type="file" (change)="onFileSelected($event)" />
+                    </div>
+                    <div class="col-md-6">
+                        <label for="inputEmail4" class="form-label">Nombre</label>
+                        <input id="nombre" name="nombre" formControlName="nombre" type="text" class="form-control">
+                        <div class="text-danger"
+                            *ngIf="zonaForm.get('nombre')?.hasError('required') && zonaForm.get('nombre')?.touched">
+                            <span><i class="bi bi-exclamation-circle "></i>El nombre es<strong>
+                                    obligatorio</strong></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="inputAddress" class="form-label">Capacidad</label>
+                        <input id="capacidad" name="capacidad" formControlName="capacidad" type="number"
+                            class="form-control" placeholder="100">
+                        <div class="text-danger"
+                            *ngIf="zonaForm.get('capacidad')?.hasError('required') && zonaForm.get('capacidad')?.touched">
+                            <span><i class="bi bi-exclamation-circle "></i>La capacidad es<strong>
+                                    obligatoria</strong></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Categoria: </label>
+                        <select class="form-select" name="idCategoria" formControlName="idCategoria">
+                            <option *ngFor="let c of itemsCategory" [value]="c.id">{{c.nombre}}
+                            </option>
+                        </select>
+                        <div class="text-danger"
+                            *ngIf="zonaForm.get('idCategoria')?.hasError('required') && zonaForm.get('idCategoria')?.touched">
+                            <span><i class="bi bi-exclamation-circle "></i>La categoria es<strong>
+                                    obligatoria</strong></span>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <label for="inputAddress2" class="form-label">Descripción: </label>
+                        <textarea id="descripcion" name="descripcion" formControlName="descripcion" class="form-control"
+                            cols="30" rows="1"></textarea>
+                        <div class="text-danger"
+                            *ngIf="zonaForm.get('descripcion')?.hasError('required') && zonaForm.get('descripcion')?.touched">
+                            <span><i class="bi bi-exclamation-circle "></i>La descripcion es<strong>
+                                    obligatoria</strong></span>
+                        </div>
+                    </div>
+                    <!--
+               <div class="col-md-6">
+                      <label for="formFile" class="form-label">Subir Imagen: </label>
+                      <input id="foto" name="foto" formControlName="foto" class="form-control" type="file">
+                      <div class="text-danger"
+                          *ngIf="zonaForm.get('foto')?.hasError('required') && zonaForm.get('foto')?.touched">
+                          <span><i class="bi bi-exclamation-circle "></i>La imagen es<strong>
+                                  obligatoria</strong></span>
+                      </div>
+                  </div>  -->
+
+                </form>
+                <div class="modal-footer">
+                    <button type="button" data-bs-dismiss="modal" class="btn btn-primary" [disabled]="zonaForm.invalid"
+                        (click)="saveZona()">Registrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modar subir archivo -->
+<div class="modal fade" id="uploadFile" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Archivos </h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="mb-3">
+                    <label for="formFile" class="form-label">Subir Archivo: </label>
+                    <input class="form-control" type="file" id="formFile">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary">Aceptar</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal editar -->
+<div class="modal fade" id="updateZona" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Datos de zona</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <h6>Informacion de las zonas comunes</h6>
+           
+                <form>
+                    <div class="info-modal">
+                        <div class="col-md-2">
+                         
+                            <img src="zonaUpdate.foto">
+                        </div>
+                        <div class="row mt-3 g-3">
+                            <label for="inputText" class="col-md-2 col-form-label">Id :</label>
+                            <div class="col-9">
+                                <input type="text" name="id" [(ngModel)]="zonaUpdate.id" class="form-control" disabled>
+                            </div>
+
+                            <label for="inputText" class="col-md-2 col-form-label">Nombre :</label>
+                            <div class="col-md-4">
+                                <input type="text" name="nombre" [(ngModel)]="zonaUpdate.nombre" class="form-control ">
+
+                            </div>
+
+                            <label for="inputText" class="col-md-2 col-form-label">Capacidad :</label>
+                            <div class="col-md-4">
+
+                                <input type="number" name="capacidad" [(ngModel)]="zonaUpdate.capacidad"
+                                    class="form-control">
+                            </div>
+
+
+                        </div>
+                        <div class="row mt-3 g-2 ">
+                            <label for="inputText" class="col-md-2 col-form-label">Categoria</label>
+                            <div class="col-md-4">
+
+                                <select name="categoria" [(ngModel)]="zonaUpdate.idCategoria"
+                                    class="form-control col-md-4">
+                                    <option *ngFor="let c of itemsCategory" [value]="c.id">{{c.nombre}}
+                                    </option>
+                                </select>
+                            </div>
+
+                            <label for="inputText" class="col-md-2 col-form-label">Estado</label>
+                            <div class="col-md-4">
+
+                                <select name="estado" [(ngModel)]="zonaUpdate.estado" class="form-control col-md-4">
+                                    <option [value]="1">Activo</option>
+                                    <option [value]="2">Inactivo</option>
+                                </select>
+                            </div>
+
+
+                            <label for="inputText" class="col-md-2 col-form-label">Descripción: </label>
+                            <div class="col-md-10">
+
+                                <textarea name="descripcion" [(ngModel)]="zonaUpdate.descripcion" class="form-control"
+                                    cols="30" rows="2"></textarea>
+                            </div>
+
+                            <br><br>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" data-bs-dismiss="modal"
+                                (click)="saveZona()">Guardar</button>
+                        </div>
+                    </div>
+
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>

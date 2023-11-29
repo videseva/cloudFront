@@ -1,0 +1,56 @@
+<div class="containerRegister">
+  <div class="card card-login">
+    <div class="row">
+      <div class="col-md-6 form-registrar">
+        <div class="logo-form-registrar">
+          <img src="" alt="" />
+          <img src="assets/logo1.png"   style="width: 100px;" alt="" />
+          <p>Z O N E C O N E X</p>
+          <hr />
+        </div>
+        <div class="formulario-registrar">
+          <p style="margin-top: 20px">
+            ¡Bienvenido de nuevo! Tu éxito comienza con cada inicio de sesión.
+          </p>
+          <form class="row g-3" (ngSubmit)="onSubmit()">
+            <div class="col-md-12">
+              <label for="inputAddress2" class="form-label">Correo</label>
+              <input type="text" class="form-control" name="correo" [(ngModel)]="correo"/>
+            </div>
+            <label  class="form-label">Password</label>
+            <div class="col-md-12 ">
+              <input [type]="changetype ? 'password' : 'text'" class="form-control" id="contrasena" name="contrasena" [(ngModel)]="contrasena" />
+              
+              <span (click)="viewpass()">
+                <i [ngClass]="visible ? 'bi bi-eye' : 'bi bi-eye-slash'"></i>
+              </span>
+            </div>
+            
+            <div class="col-md-12">
+              <button type="submit" class="btn btn-primary">
+                Iniciar Session
+              </button>
+            </div>
+            <div class="col-md-12">
+              <label class="registrar"
+                >¿No Tienes Cuenta?
+                <span
+                  ><a
+                    [routerLinkActive]="['active']"
+                    [routerLink]="['/pageWeb/registrarUser']"
+                    >Crear una Cuenta</a
+                  ></span
+                ></label
+              >
+            </div>
+            <!-- <div class="col-md-12 "  >
+              <button  mat-raised-button class="google-login-btn btn"> <span>Iniciar Con Google</span></button>
+
+            </div> -->
+          </form>
+        </div>
+      </div>
+      <div class="col-md-6 overlay"></div>
+    </div>
+  </div>
+</div>
