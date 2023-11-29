@@ -1,5 +1,5 @@
 # Usa una imagen de Node.js 16.20.2 como base
-FROM node:16.20.2 AS build
+FROM node:18.17.1 AS build
 
 # Establece el directorio de trabajo en la carpeta de la aplicación
 WORKDIR /app
